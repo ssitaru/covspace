@@ -4,12 +4,12 @@ import csv
 import pymongo
 import datetime
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+myclient = pymongo.MongoClient("mongodb://admin:covid19season@localhost:27017")
 mydb = myclient["covspace"]
 countriesdb = mydb["countries"]
-owid = mydb["ecdc"]
+owid = mydb["eurostat-population"]
 
-with open('ecdc.csv') as csvfile:
+with open('data.csv') as csvfile:
 	reader = csv.DictReader(csvfile)
 	for row in reader:
 		# dateRep,day,month,year,cases,deaths,countriesAndTerritories,geoId,countryterritoryCode,popData2018,continentExp
