@@ -427,3 +427,19 @@ db.datasources.insert({
     {entity_id: ObjectId("5ea5cb0082c622e04eb29121"), this_id: "gt_sixtyfive_population", name_en: ">65 yr population", type: "int"},
 	]
 })
+
+// num_cases, current_hospitalized, num_hospital_days_per_case, num_current_icu, num_icu_days_per_case
+// change_num_current_icu, perc_current_icu_of_cases
+db.datasources.insert({
+	id: 'icu_tub',
+	name_en: 'TU Berlin ICU data',
+	data_entities: [
+		{entity_id: ObjectId("5ea48ba8174b45b4e1cd87fa"), this_id: "num_cases", name_en: "Total Cases", type: "int"},
+		{entity_id: ObjectId("5ea604ea786ed17f20e1dc72"), this_id: "current_hospitalized", name_en: "Currently Hospitalized", type: "int"},
+    {entity_id: ObjectId("5ea604ea786ed17f20e1dc73"), this_id: "num_hospital_days_per_case", name_en: "Hospital days/case", type: "double"},
+    {entity_id: ObjectId("5ea604ea786ed17f20e1dc74"), this_id: "num_current_icu", name_en: "Current ICU patients", type: "int"},
+    {entity_id: ObjectId("5ea604ea786ed17f20e1dc75"), this_id: "num_icu_days_per_case", name_en: "ICU days/case", type: "double"},
+    {entity_id: ObjectId("5ea604ea786ed17f20e1dc76"), this_id: "change_num_current_icu", name_en: "Change ICU days", type: "int"},
+    {entity_id: ObjectId("5ea604eb786ed17f20e1dc77"), this_id: "perc_current_icu_of_cases", name_en: "% current ICU of cases", type: "double"},
+	]
+})
