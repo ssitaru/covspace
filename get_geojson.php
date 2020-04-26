@@ -4,14 +4,13 @@ error_reporting(E_ALL);
 header('Content-type: text/json');
 
 require 'vendor/autoload.php';
+require '_include.php';
 
 $req = array('error' => true, 'msg' => '', 'data' => '');
 
-$client = new MongoDB\Client("mongodb://localhost:27017");
-
 try
 {
-	$db = $client->covspace;
+	$db = $dbClient->covspace;
 	$rq_dataSource = $_REQUEST["dataSource"];
 	$rq_dataEntity = $_REQUEST["dataEntity"];
 	$col = $db->$rq_dataSource;
