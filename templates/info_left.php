@@ -79,7 +79,7 @@ $dss = $db->datasources->find()->toArray();
         foreach($ds["data_entities"] as $de)
         {
           $globalDe = $db->data_entities->findOne([ '_id' => $de['entity_id'], 'show_in_detail' => true ]);
-          if($globalDe != null)
+          if(($globalDe != null) && ($entry[$de["this_id"]] != -1))
           {
             echo "<li>".$globalDe['name_en'].': <span class="db_data" data-type="'.$de['type'].'">'.$entry[$de["this_id"]]."</span></li>";
           }
