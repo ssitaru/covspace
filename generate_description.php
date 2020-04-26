@@ -28,8 +28,12 @@ try
 			echo "<ul>";
 			foreach($ds["data_entities"] as $de)
 			{
-				$globalDe = $db->data_entities->findOne([ '_id' => $de['entity_id'] ]);
-				echo "<li>".$globalDe['id']." (".$de["this_id"]."): ".$entry[$de["this_id"]]."</li>";
+				$globalDe = $db->data_entities->findOne([ '_id' => $de['entity_id'], 'active' => true ]);
+				if($globalDe != null)
+				{
+					echo "<li>".$globalDe['id']." (".$de["this_id"]."): ".$entry[$de["this_id"]]."</li>";
+				}
+
 			}
 			echo "</ul>";
 		} else {

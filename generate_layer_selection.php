@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 require 'vendor/autoload.php';
 require '_include.php';
 
-$layers = $dbClient->covspace->data_entities->find()->toArray();
+$layers = $dbClient->covspace->data_entities->find(['active' => true])->toArray();
 
 $datasources = $dbClient->covspace->datasources->find(['active' => true])->toArray();
 

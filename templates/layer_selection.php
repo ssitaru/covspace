@@ -2,19 +2,23 @@
 #layer_selector_box {
   background-color: #fff;
   border: 2px solid #fff;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   text-align: center;
 
-  color: rgb(25, 25, 25);
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 12px;
-  line-height: 38px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 10px;
+
+  font-size: 16px;
+
+  border: 1px #000 solid;
+}
+
+#layer_selector_box div {
+  display: inline;
+  margin-left: 10px;
 }
 
 #layer_selector_head {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .layer_selector_item {
@@ -41,7 +45,8 @@
 
 #layer_selector_datasource_container
 {
-  margin-top: 30px;
+  margin-left: 30px;
+  border-left: 1px #000 solid;
 }
 </style>
 

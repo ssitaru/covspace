@@ -229,11 +229,27 @@ db.data_entities.insert({
 });
 db.data_entities.insert({
   id: 'total_recovered',
-  name_en: 'Total Recovered'
+  name_en: 'Total Recovered',
 });
 db.data_entities.insert({
   id: 'total_tests',
-  name_en: 'Total Tests'
+  name_en: 'Total Tests',
+  active: false
+});
+db.data_entities.insert({
+  id: 'new_tests',
+  name_en: 'New Tests',
+  active: false
+});
+db.data_entities.insert({
+  id: 'new_cases',
+  name_en: 'New Cases',
+  active: false
+});
+db.data_entities.insert({
+  id: 'new_deaths',
+  name_en: 'New Deaths',
+  active: false
 });
 
 db.datasources.insert({
