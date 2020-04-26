@@ -105,6 +105,40 @@ db.createCollection("data_entities", {
    }
 })
 
+db.createCollection("intervention_icons", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "id", "path" ],
+         properties: {
+            id: {
+               bsonType: "string",
+            },
+            iconpath: {
+               bsonType: "string",
+            }
+			}
+      }
+   }
+})
+/*
+db.createCollection("intervention_types", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "id", "alias" ],
+         properties: {
+            id: {
+               bsonType: "string",
+            },
+            alias: {
+               bsonType: "string",
+            }
+			}
+      }
+   }
+})*/
+/* https://github.com/amel-github/covid19-interventionmeasures/blob/master/List_measures_by_categoryL1-L2.csv */
 
 db.createCollection("cssedb", {
    validator: {
@@ -219,6 +253,40 @@ db.createCollection("ecdc", {
 
 
 // static data
+db.intervention_icons.insert({
+   id: 'Travel restriction',
+   iconpath: 'svg/no-travel.svg'
+});
+db.intervention_icons.insert({
+   id: 'Social distancing',
+   iconpath: 'svg/social-distancing.svg'
+});
+db.intervention_icons.insert({
+   id: 'Risk communication',
+   iconpath: 'svg/risk-communication.svg'
+});
+db.intervention_icons.insert({
+   id: 'Healthcare and public health capacity',
+   iconpath: 'svg/healthcare.svg'
+});
+db.intervention_icons.insert({
+   id: 'Case identification, contact tracing and related measures',
+   iconpath: 'svg/case-detection.svg'
+});
+db.intervention_icons.insert({
+   id: 'Resource allocation',
+   iconpath: 'svg/resource-allocation.svg'
+});
+db.intervention_icons.insert({
+   id: 'Environmental measures',
+   iconpath: 'svg/environmental.svg'
+});
+db.intervention_icons.insert({
+   id: 'Returning to normal life',
+   iconpath: 'svg/normal-life.svg'
+});
+
+
 db.data_entities.insert({
   id: 'total_cases',
   name_en: 'Total Cases'
