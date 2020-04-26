@@ -9,7 +9,7 @@
 
   font-size: 16px;
 
-  border: 1px #000 solid;
+  border: 1px #aaa solid;
 }
 
 #layer_selector_box div {

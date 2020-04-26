@@ -22,7 +22,8 @@
     'dataMax': 0,
     'dataMin': 0,
   };
-  var infoWindows = [];
+  var infoBoxLeft = {};
+  var infoBoxRight = {};
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -60,9 +61,9 @@ function updateMapLayer()
   map.data.forEach(function(feature) {
     map.data.remove(feature);
   });
-  infoWindows.forEach(function(i){
+  /*infoWindows.forEach(function(i){
     i.close();
-  });
+  });*/
 
   $.ajax({'url': '/get_geojson.php?dataSource='+dataState['selectedDataSource']+'&dataEntity='+dataState['selectedDataEntity']}).done(function(data){
     map.data.addGeoJson(data.data);
@@ -87,16 +88,28 @@ function updateMapLayer()
 
 function handleClickFeature(e) {
   console.log('clicked '+e.feature.o);
-  // converting to latLng
+  /* deprecated info box
   var markerObj = new google.maps.MVCObject();
   markerObj.setValues({position: e.latLng});
   var infoWindow = new google.maps.InfoWindow();
   infoWindow.open(map, markerObj);
-  infoWindows.push(infoWindow);
-  $.ajax({url: '/generate_description.php', data: {countryId: e.feature.getProperty('countryId'), dataSource: e.feature.getProperty('dataSource')}}).done(function(d){
-      infoWindow.setContent(d);
+  infoWindows.push(infoWindow); infoWindow.setContent(d); */
+
+  $.ajax({url: '/generate_infobox_left.php', data: {countryId: e.feature.getProperty('countryId'), dataSource: e.feature.getProperty('dataSource')}}).done(function(d){
+    infoBoxLeft = document.createElement('div');
+    infoBoxLeft.id = 'infobox_left_container';
+    $(infoBoxLeft).append(d);
+    console.log(infoBoxLeft);
+
+    map.controls[google.maps.ControlPosition.LEFT_CENTER].clear();
+
+    infoBoxLeft.index = 1;
+    map.controls[google.maps.ControlPosition.LEFT_CENTER].push(infoBoxLeft);
+
+    $(infoBoxLeft).find('#infobox_left_close').click(function(){
+      map.controls[google.maps.ControlPosition.LEFT_CENTER].clear();
+    });
   });
-  console.log(e);
 }
 
 function handleLayerSelectionChange(e)

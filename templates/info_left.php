@@ -1,25 +1,42 @@
 <style type="text/css">
+#infobox_left_container {
+  margin-left: 10px;
+  position: absolute;
+}
+
+#infobox_left_close {
+  position: absolute;
+  cursor: pointer;
+  right: 15px;
+  top: 5px;
+}
+
+#infobox_left_close i {
+  scale: 0.8;
+}
+
 #infobox_left {
   background-color: #fff;
   border: 2px solid #fff;
-  text-align: center;
+  text-align: left;
 
-  padding: 5px;
+  padding: 15px;
 
+  margin-right: 10px;
   font-size: 16px;
 
-  border: 1px #000 solid;
+  border: 1px #aaa solid;
 
   height: 60%;
 }
 
-
 #infobox_left_head {
   font-size: 22px;
+  text-align: center;
 }
 
 .infobox_left_item {
-  margin-top: 3px;
+  margin-top: 10px;
   margin-bottom: 3px;
 }
 
@@ -31,7 +48,6 @@
 <?php
 $db = $dbClient->covspace;
 $rq_dataSource = $_REQUEST["dataSource"];
-$rq_id = $_REQUEST["id"];
 $rq_countryId = $_REQUEST["countryId"];
 
 $country = $db->countries->findOne(['_id'=> new \MongoDB\BSON\ObjectId($rq_countryId)]);
@@ -39,16 +55,17 @@ $country = $db->countries->findOne(['_id'=> new \MongoDB\BSON\ObjectId($rq_count
 $dss = $db->datasources->find()->toArray();
 ?>
 
-<div style="display:hidden">
+<div id="infobox_left_close"><i class="material-icons">close</i></div>
   <div id="infobox_left">
     <div id="infobox_left_head"><?=$country['country_name']?></div>
 <?php
     foreach($dss as $ds)
     {
-      echo "<div class="infobox_left_item">Data Source: ".$ds["name_en"];
-      echo "<div>Date: ".$ds["date"]."</div>";
+      echo '<div class="infobox_left_item">Data Source: '.$ds["name_en"];
+
       $dsId = $ds['id'];
       $entry = $db->$dsId->findOne([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ]);
+      echo "<div>Date: ".$entry["date"]->toDateTime()->format('Y-m-d')."</div>";
       if($entry != null)
       {
         echo "<ul>";
@@ -65,6 +82,10 @@ $dss = $db->datasources->find()->toArray();
       } else {
         echo "no data";
       }
+    }
       ?>
+  <div class="infobox_left_item">Data Source: CCCSL
+    <div>Date: whatever </div>
+
   </div>
-</div>
+  </div>
