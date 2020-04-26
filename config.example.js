@@ -1,1 +1,1 @@
-var GoogleAPIKey = '';
+var GoogleAPIKey = '<YOUR API KEY>';
