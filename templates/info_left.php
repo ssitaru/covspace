@@ -124,8 +124,7 @@ $icons = $db->intervention_icons->find()->toArray();
     }
 
       ?>
-  <div class="infobox_left_item">Data Source: CCCSL
-    <div>Date: 2020-04-26 </div>
+  <div class="infobox_left_item">
     <div><b>Intervention Measures</b></div>
     <div>
     <?php
@@ -138,6 +137,8 @@ $icons = $db->intervention_icons->find()->toArray();
           echo '<img class="icon" src="'.$value["iconpath"].'" alt="'.$value["id"].'" title="'.$value["id"].'">';
       }
     ?>
+    <div class="infobox_left_date">Data Source: CCCSL</div>
+    <div class="infobox_left_date">Date: 2020-04-26 </div>
     </div>
   </div>
   </div>
