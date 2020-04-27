@@ -6,6 +6,7 @@
     <meta name="viewport" content="initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="style.css" />
 	<script src="/js/jquery-3.5.0.min.js"></script>
+  <script src="/js/numeral.min.js"></script>
   <script type='text/javascript' src='config.js'></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
@@ -108,6 +109,15 @@ function handleClickFeature(e) {
 
     $(infoBoxLeft).find('#infobox_left_close').click(function(){
       map.controls[google.maps.ControlPosition.LEFT_CENTER].clear();
+    });
+
+    // make ints pretty
+    $(infoBoxLeft).find('span.db_data[data-type="int"]').each(function(){
+      n = numeral($(this).text());
+      if(n.value() > 1000)
+      {
+        $(this).text(n.format('0.0 a'));
+      }
     });
   });
 }

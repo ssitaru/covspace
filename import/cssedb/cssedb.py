@@ -2,9 +2,9 @@
 
 import csv
 import pymongo
-import datetime 
+import datetime
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+myclient = pymongo.MongoClient("mongodb://admin:covid19season@localhost:27017")
 mydb = myclient["covspace"]
 cssedb = mydb["cssedb"]
 countriesdb = mydb["countries"]

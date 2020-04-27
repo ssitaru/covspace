@@ -37,7 +37,11 @@
 
 .infobox_left_item {
   margin-top: 10px;
-  margin-bottom: 3px;
+  margin-bottom: 20px;
+}
+
+.infobox_left_item ul {
+  margin-top: 8px;
 }
 
 .infobox_left_subitem {
@@ -65,22 +69,25 @@ $dss = $db->datasources->find()->toArray();
 
       $dsId = $ds['id'];
       $entry = $db->$dsId->findOne([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ]);
-      echo "<div>Date: ".$entry["date"]->toDateTime()->format('Y-m-d')."</div>";
+      if($entry["date"] != null)
+      {
+        echo "<div>Date: ".$entry["date"]->toDateTime()->format('Y-m-d')."</div>";
+      }
       if($entry != null)
       {
         echo "<ul>";
         foreach($ds["data_entities"] as $de)
         {
-          $globalDe = $db->data_entities->findOne([ '_id' => $de['entity_id'], 'active' => true ]);
-          if($globalDe != null)
+          $globalDe = $db->data_entities->findOne([ '_id' => $de['entity_id'], 'show_in_detail' => true ]);
+          if(($globalDe != null) && ($entry[$de["this_id"]] != -1))
           {
-            echo "<li>".$globalDe['id']." (".$de["this_id"]."): ".$entry[$de["this_id"]]."</li>";
+            echo "<li>".$globalDe['name_en'].': <span class="db_data" data-type="'.$de['type'].'">'.$entry[$de["this_id"]]."</span></li>";
           }
 
         }
         echo "</ul></div>";
       } else {
-        echo "no data";
+        echo "<div>no data</div>";
       }
     }
       ?>
