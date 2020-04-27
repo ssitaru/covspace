@@ -27,11 +27,14 @@ try
 			$entityKey = $de['this_id'];
 		}
 	}
-
-	/*$dStart = new DateTime('2020-04-24T00:00:00.000Z');
-	$dEnd = new DateTime('2020-04-25T00:00:00.000Z');
-	$data = $col->find(['date' => ['$gte' => $dStart, '$lt' => $dEnd]]);*/
-	$data = $col->find();
+// get latest data for each country
+	$data = $col->aggregate([
+		[ '$sort' => [ 'date' => -1 ] ],
+		[ '$group' => [
+			'_id' => '$country_id',
+        'doc' => [ '$first' => '$$ROOT' ] ]
+		],
+		['$replaceRoot' => [ "newRoot" => '$doc'] ] ]);
 	foreach($data as $entry)
 	{
 		$feature = array('id' => $entry['_id']->__toString(), 'type' => 'Feature');

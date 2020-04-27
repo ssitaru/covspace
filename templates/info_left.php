@@ -82,7 +82,8 @@ $icons = $db->intervention_icons->find()->toArray();
       echo '<details class="infobox_left_item"><summary>Data Source: '.$ds["name_en"].'</summary>';
 
       $dsId = $ds['id'];
-      $entry = $db->$dsId->findOne([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ]);
+      $entries = $db->$dsId->find([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ], ['sort' => ['date' => -1]])->toArray();
+      $entry = $entries[0];
       if($entry["date"] != null)
       {
         echo '<div class="infobox_left_date">Date: '.$entry["date"]->toDateTime()->format('Y-m-d').'</div>';
@@ -104,6 +105,14 @@ $icons = $db->intervention_icons->find()->toArray();
         echo "<div>no data</div></details>";
       }
     }
+    $static = $db->static_country_data->findOne([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ]);
+    if($static != null)
+    {
+      echo '<div class="infobox_left_item">';
+      echo $static['content'];
+      echo '</div>';
+    }
+
       ?>
   <div class="infobox_left_item">Data Source: CCCSL
     <div>Date: whatever </div>
