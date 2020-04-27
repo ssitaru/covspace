@@ -61,8 +61,13 @@
 }
 
 img.icon {
-  width:2em;
-  height:auto;
+  width:auto;
+  height:2em;
+  padding: 0.2em;
+  border-radius:5px;
+}
+img.icon:hover {
+  box-shadow: 0 0 4px #777;
 }
 </style>
 
@@ -74,7 +79,7 @@ $rq_countryId = $_REQUEST["countryId"];
 $country = $db->countries->findOne(['_id'=> new \MongoDB\BSON\ObjectId($rq_countryId)]);
 //$ds = $db->datasources->findOne([ 'id' => $rq_dataSource ]);
 $dss = $db->datasources->find()->toArray();
-$interventions = $db->interventions->find([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ])->toArray();
+$interventions = $db->interventions->find([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ], ['measure_l1'])->toArray();
 $icons = $db->intervention_icons->find()->toArray();
 ?>
 
@@ -120,12 +125,19 @@ $icons = $db->intervention_icons->find()->toArray();
 
       ?>
   <div class="infobox_left_item">Data Source: CCCSL
-    <div>Date: whatever </div>
-    <div>Intervention Measures</div>
+    <div>Date: 2020-04-26 </div>
+    <div><b>Intervention Measures</b></div>
+    <div>
     <?php
-      foreach($icons as $icon){
-
+      $di = [];
+      foreach ($interventions as $key => $value) {
+        $di[$key] = $value["measure_l1"];
+      }
+      foreach ($icons as $key => $value) {
+        if(in_array($value["id"], $di))
+          echo '<img class="icon" src="'.$value["iconpath"].'" alt="'.$value["id"].'" title="'.$value["id"].'">';
       }
     ?>
+    </div>
   </div>
   </div>
