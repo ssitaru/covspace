@@ -3,3 +3,5 @@ composer.lock
 vendor/
 config.js
 config.php
+backups/
+wordpress/

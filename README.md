@@ -1,5 +1,9 @@
 # covspace
 
+Project submitted to the #EUvsVirus hackathon April 2020.
+
+The Covspace team: Lucas Thieme, Philip Plättner, Jonah Grütters, Sebastian Sitaru, Veronika Waldorf, Till Isenhuth
+
 ## install
 
 you need php-mongodb and composer (download to project root/composer.phar)
