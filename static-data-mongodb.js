@@ -109,6 +109,16 @@ db.createCollection("data_entities", {
 })
 
 
+db.createCollection("static_country_data", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "country_id", "date", "content" ],
+         properties: {
+            country_id: {bsonType: "objectId"}, date: {bsonType: "date" },content: {bsonType: "string"}}}
+   }
+})
+
 db.createCollection("cssedb", {
    validator: {
       $jsonSchema: {
@@ -174,10 +184,10 @@ db.createCollection("owid", {
                bsonType: "double",
             },
 			total_tests: {
-               bsonType: "int",
+               bsonType: "double",
             },
 			new_tests: {
-               bsonType: "int",
+               bsonType: "double",
             },
 			total_tests_per_thousand: {
                bsonType: "double",

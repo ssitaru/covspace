@@ -68,7 +68,8 @@ $dss = $db->datasources->find()->toArray();
       echo '<div class="infobox_left_item">Data Source: '.$ds["name_en"];
 
       $dsId = $ds['id'];
-      $entry = $db->$dsId->findOne([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ]);
+      $entries = $db->$dsId->find([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ], ['sort' => ['date' => -1]])->toArray();
+      $entry = $entries[0];
       if($entry["date"] != null)
       {
         echo "<div>Date: ".$entry["date"]->toDateTime()->format('Y-m-d')."</div>";
@@ -79,7 +80,7 @@ $dss = $db->datasources->find()->toArray();
         foreach($ds["data_entities"] as $de)
         {
           $globalDe = $db->data_entities->findOne([ '_id' => $de['entity_id'], 'show_in_detail' => true ]);
-          if($globalDe != null)
+          if(($globalDe != null) && ($entry[$de["this_id"]] != -1))
           {
             echo "<li>".$globalDe['name_en'].': <span class="db_data" data-type="'.$de['type'].'">'.$entry[$de["this_id"]]."</span></li>";
           }
@@ -90,6 +91,14 @@ $dss = $db->datasources->find()->toArray();
         echo "<div>no data</div>";
       }
     }
+    $static = $db->static_country_data->findOne([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ]);
+    if($static != null)
+    {
+      echo '<div class="infobox_left_item">';
+      echo $static['content'];
+      echo '</div>';
+    }
+
       ?>
   <div class="infobox_left_item">Data Source: CCCSL
     <div>Date: whatever </div>
