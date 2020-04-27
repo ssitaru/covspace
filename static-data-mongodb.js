@@ -140,6 +140,44 @@ db.createCollection("intervention_types", {
 })*/
 /* https://github.com/amel-github/covid19-interventionmeasures/blob/master/List_measures_by_categoryL1-L2.csv */
 
+db.createCollection("interventions", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "id", "country_id", "date", "measure_l1", "measure_l2", "measure_l3", "measure_l4", "comment", "source" ],
+         properties: {
+            id: {
+               bsonType: "string"
+            },
+            country_id: {
+               bsonType: "string",
+            },
+            date: {
+               bsonType: "date",
+            },
+            measure_l1: {
+               bsonType: "string",
+            },
+            measure_l2: {
+               bsonType: "string",
+            },
+            measure_l3: {
+               bsonType: "string",
+            },
+            measure_l4: {
+               bsonType: "string",
+            },
+            comment: {
+               bsonType: "string",
+            },
+            source: {
+               bsonType: "string",
+            },
+         }
+      }
+   }
+})
+
 db.createCollection("cssedb", {
    validator: {
       $jsonSchema: {
