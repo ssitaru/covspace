@@ -59,6 +59,11 @@
   font-style: italic;
   margin-left: 1em;
 }
+
+img.icon {
+  width:2em;
+  height:auto;
+}
 </style>
 
 <?php
@@ -117,5 +122,10 @@ $icons = $db->intervention_icons->find()->toArray();
   <div class="infobox_left_item">Data Source: CCCSL
     <div>Date: whatever </div>
     <div>Intervention Measures</div>
+    <?php
+      foreach($icons as $icon){
+
+      }
+    ?>
   </div>
   </div>
