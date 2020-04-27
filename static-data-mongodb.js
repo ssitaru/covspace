@@ -108,6 +108,78 @@ db.createCollection("data_entities", {
    }
 })
 
+db.createCollection("intervention_icons", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "id", "path" ],
+         properties: {
+            id: {
+               bsonType: "string",
+            },
+            iconpath: {
+               bsonType: "string",
+            }
+			}
+      }
+   }
+})
+/*
+db.createCollection("intervention_types", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "id", "alias" ],
+         properties: {
+            id: {
+               bsonType: "string",
+            },
+            alias: {
+               bsonType: "string",
+            }
+			}
+      }
+   }
+})*/
+/* https://github.com/amel-github/covid19-interventionmeasures/blob/master/List_measures_by_categoryL1-L2.csv */
+
+db.createCollection("interventions", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: [ "id", "country_id", "date", "measure_l1", "measure_l2", "measure_l3", "measure_l4", "comment", "source" ],
+         properties: {
+            id: {
+               bsonType: "string"
+            },
+            country_id: {
+               bsonType: "string",
+            },
+            date: {
+               bsonType: "date",
+            },
+            measure_l1: {
+               bsonType: "string",
+            },
+            measure_l2: {
+               bsonType: "string",
+            },
+            measure_l3: {
+               bsonType: "string",
+            },
+            measure_l4: {
+               bsonType: "string",
+            },
+            comment: {
+               bsonType: "string",
+            },
+            source: {
+               bsonType: "string",
+            },
+         }
+      }
+   }
+})
 
 db.createCollection("static_country_data", {
    validator: {
@@ -299,6 +371,40 @@ db.createCollection("icu_tub", {
 })
 
 // static data
+db.intervention_icons.insert({
+   id: 'Travel restriction',
+   iconpath: 'svg/no-travel.svg'
+});
+db.intervention_icons.insert({
+   id: 'Social distancing',
+   iconpath: 'svg/social-distancing.svg'
+});
+db.intervention_icons.insert({
+   id: 'Risk communication',
+   iconpath: 'svg/risk-communication.svg'
+});
+db.intervention_icons.insert({
+   id: 'Healthcare and public health capacity',
+   iconpath: 'svg/healthcare.svg'
+});
+db.intervention_icons.insert({
+   id: 'Case identification, contact tracing and related measures',
+   iconpath: 'svg/case-detection.svg'
+});
+db.intervention_icons.insert({
+   id: 'Resource allocation',
+   iconpath: 'svg/resource-allocation.svg'
+});
+db.intervention_icons.insert({
+   id: 'Environmental measures',
+   iconpath: 'svg/environmental.svg'
+});
+db.intervention_icons.insert({
+   id: 'Returning to normal life',
+   iconpath: 'svg/normal-life.svg'
+});
+
+
 db.data_entities.insert({
   id: 'total_cases',
   name_en: 'Total Cases'
