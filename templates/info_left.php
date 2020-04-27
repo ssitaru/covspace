@@ -2,6 +2,8 @@
 #infobox_left_container {
   margin-left: 10px;
   position: absolute;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 #infobox_left_close {
