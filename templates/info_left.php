@@ -40,12 +40,24 @@
   margin-bottom: 20px;
 }
 
+.infobox_left_item summary {
+  font-weight: bold;
+}
+.infobox_left_item summary:hover {
+  cursor: pointer;
+}
+
 .infobox_left_item ul {
   margin-top: 8px;
 }
 
 .infobox_left_subitem {
   padding-left: 10px;
+}
+
+.infobox_left_date {
+  font-style: italic;
+  margin-left: 1em;
 }
 </style>
 
@@ -57,6 +69,8 @@ $rq_countryId = $_REQUEST["countryId"];
 $country = $db->countries->findOne(['_id'=> new \MongoDB\BSON\ObjectId($rq_countryId)]);
 //$ds = $db->datasources->findOne([ 'id' => $rq_dataSource ]);
 $dss = $db->datasources->find()->toArray();
+$interventions = $db->interventions->find([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ])->toArray();
+$icons = $db->intervention_icons->find()->toArray();
 ?>
 
 <div id="infobox_left_close"><i class="material-icons">close</i></div>
@@ -65,13 +79,13 @@ $dss = $db->datasources->find()->toArray();
 <?php
     foreach($dss as $ds)
     {
-      echo '<div class="infobox_left_item">Data Source: '.$ds["name_en"];
+      echo '<details class="infobox_left_item"><summary>Data Source: '.$ds["name_en"].'</summary>';
 
       $dsId = $ds['id'];
       $entry = $db->$dsId->findOne([ 'country_id' => new MongoDB\BSON\ObjectId($rq_countryId) ]);
       if($entry["date"] != null)
       {
-        echo "<div>Date: ".$entry["date"]->toDateTime()->format('Y-m-d')."</div>";
+        echo '<div class="infobox_left_date">Date: '.$entry["date"]->toDateTime()->format('Y-m-d').'</div>';
       }
       if($entry != null)
       {
@@ -85,9 +99,9 @@ $dss = $db->datasources->find()->toArray();
           }
 
         }
-        echo "</ul></div>";
+        echo "</ul></details>";
       } else {
-        echo "<div>no data</div>";
+        echo "<div>no data</div></details>";
       }
     }
       ?>
